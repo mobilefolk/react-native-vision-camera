@@ -40,6 +40,10 @@ export interface RecordVideoOptions {
    * @platform iOS
    */
   videoCodec?: CameraVideoCodec;
+  
+  path?: string;
+
+  fileName?: string;
 }
 
 /**
