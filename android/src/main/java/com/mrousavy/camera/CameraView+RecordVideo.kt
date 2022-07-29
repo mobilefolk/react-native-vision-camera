@@ -40,7 +40,7 @@ fun CameraView.startRecording(options: ReadableMap, onRecordCallback: Callback) 
   val id = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
   var file = File.createTempFile("VisionCamera-${id}", ".mp4")
   if (options.hasKey("path") && options.hasKey("fileName")) {
-    file = File(options.getString("path"), "${options.getString("fileName")}_${id}.mp4")
+    file = File(options.getString("path"), "${options.getString("fileName")}.mp4")
   }
   val fileOptions = FileOutputOptions.Builder(file).build()
 
