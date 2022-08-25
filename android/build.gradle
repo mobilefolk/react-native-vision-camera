@@ -228,16 +228,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     extractJNI("com.facebook.fbjni:fbjni:+")
 
-    def buildType = "debug"
-    tasks.all({ task ->
-      if (task.name == "buildCMakeRelease") {
-        buildType = "release"
-      }
-    })
-    if (REACT_NATIVE_VERSION < 69) {
-      rnAarMatcher = "**/**/*.aar"
-    }
-    def rnAAR = fileTree("$reactNative/android").matching({ it.include rnAarMatcher }).singleFile
+    def rnAAR = fileTree("${nodeModules}/react-native/android").matching({ it.include "**/**/*.aar" }).singleFile
     def rnAarMatcher = "**/react-native/**/*${buildType}.aar"
     def jscAAR = fileTree("${nodeModules}/jsc-android/dist/org/webkit/android-jsc").matching({ it.include "**/**/*.aar" }).singleFile
 
@@ -295,12 +286,7 @@ if (ENABLE_FRAME_PROCESSORS) {
   }
 
   task downloadBoost(dependsOn: createNativeDepsDirectories, type: Download) {
-    def transformedVersion = BOOST_VERSION.replace("_", ".")
-    def srcUrl = "https://boostorg.jfrog.io/artifactory/main/release/${transformedVersion}/source/boost_${BOOST_VERSION}.tar.gz"
-    if (REACT_NATIVE_VERSION < 69) {
-      srcUrl = "https://github.com/react-native-community/boost-for-react-native/releases/download/v${transformedVersion}-0/boost_${BOOST_VERSION}.tar.gz"
-    }
-    src(srcUrl)
+    src("https://github.com/react-native-community/boost-for-react-native/releases/download/v${BOOST_VERSION.replace("_", ".")}-0/boost_${BOOST_VERSION}.tar.gz")
     onlyIfNewer(true)
     overwrite(false)
     dest(boost_file)
