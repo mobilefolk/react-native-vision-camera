@@ -106,21 +106,12 @@ find_library(
         NO_CMAKE_FIND_ROOT_PATH
 )
 
-if(${REACT_NATIVE_VERSION} LESS 69)
-    find_library(
-            FOLLY_JSON_LIB
-            folly_json
-            PATHS ${LIBRN_DIR}
-            NO_CMAKE_FIND_ROOT_PATH
-    )
-else()
-    find_library(
-            FOLLY_JSON_LIB
-            folly_runtime
-            PATHS ${LIBRN_DIR}
-            NO_CMAKE_FIND_ROOT_PATH
-    )
-endif()
+find_library(
+        FOLLY_JSON_LIB
+        folly_json
+        PATHS ${LIBRN_DIR}
+        NO_CMAKE_FIND_ROOT_PATH
+)
 
 find_library(
         REACT_NATIVE_JNI_LIB
